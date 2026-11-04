@@ -18,13 +18,13 @@ A single-page web app, live at a public Vercel URL, with a public GitHub repo. T
 
 Each feature has an ID so commits, tests, and tasks can reference it.
 
-| ID | Feature | Acceptance criteria |
-| --- | --- | --- |
-| FR-1 | Race input | User picks a distance (5K, 10K, half, marathon, or custom number + unit) and enters a time as h, m, s. Results update without a page reload. |
-| FR-2 | Race predictions | Shows predicted time and pace for 5K, 10K, half, marathon. The input distance shows the user's actual time, labeled "your time". |
-| FR-3 | Training pace zones | Shows Interval, Tempo, Easy, Long run as a pace range (fast–slow). |
-| FR-4 | Goal race splits | User picks a goal distance and goal time. Shows split number, split distance, cumulative time. Even pacing. |
-| FR-5 | Unit toggle | min/km vs min/mi toggle converts every pace on screen. |
+| ID   | Feature             | Acceptance criteria                                                                                                                          |
+| ---- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| FR-1 | Race input          | User picks a distance (5K, 10K, half, marathon, or custom number + unit) and enters a time as h, m, s. Results update without a page reload. |
+| FR-2 | Race predictions    | Shows predicted time and pace for 5K, 10K, half, marathon. The input distance shows the user's actual time, labeled "your time".             |
+| FR-3 | Training pace zones | Shows Interval, Tempo, Easy, Long run as a pace range (fast–slow).                                                                           |
+| FR-4 | Goal race splits    | User picks a goal distance and goal time. Shows split number, split distance, cumulative time. Even pacing.                                  |
+| FR-5 | Unit toggle         | min/km vs min/mi toggle converts every pace on screen.                                                                                       |
 
 **Display formats:** times as `h:mm:ss` (or `mm:ss` under one hour); paces as `m:ss /mi` or `m:ss /km`. Round to the nearest second for display only.
 
@@ -42,25 +42,25 @@ T_2 = T_1 \times \left(\frac{D_2}{D_1}\right)^{1.06}
 
 **Training zones:** multipliers on the runner's 5K pace (predicted via Riegel if the input isn't a 5K). Above 1 means slower.
 
-| Zone | 5K-pace multiplier (fast–slow) |
-| --- | --- |
-| Interval | 0.98 – 1.02 |
-| Tempo | 1.08 – 1.12 |
-| Easy | 1.25 – 1.40 |
-| Long run | 1.30 – 1.45 |
+| Zone     | 5K-pace multiplier (fast–slow) |
+| -------- | ------------------------------ |
+| Interval | 0.98 – 1.02                    |
+| Tempo    | 1.08 – 1.12                    |
+| Easy     | 1.25 – 1.40                    |
+| Long run | 1.30 – 1.45                    |
 
 **Worked example (your first test values)** — input: 5K in 28:00 (1680 s).
 
-| Output | Expected |
-| --- | --- |
-| 5K pace | 5:36 /km · 9:01 /mi |
-| Predicted 10K | 58:23 |
-| Predicted half marathon | 2:08:48 |
-| Predicted marathon | 4:28:33 |
-| Interval zone | 8:50 – 9:12 /mi |
-| Tempo zone | 9:44 – 10:06 /mi |
-| Easy zone | 11:16 – 12:37 /mi |
-| Long run zone | 11:43 – 13:04 /mi |
+| Output                  | Expected            |
+| ----------------------- | ------------------- |
+| 5K pace                 | 5:36 /km · 9:01 /mi |
+| Predicted 10K           | 58:23               |
+| Predicted half marathon | 2:08:48             |
+| Predicted marathon      | 4:28:33             |
+| Interval zone           | 8:50 – 9:12 /mi     |
+| Tempo zone              | 9:44 – 10:06 /mi    |
+| Easy zone               | 11:16 – 12:37 /mi   |
+| Long run zone           | 11:43 – 13:04 /mi   |
 
 Riegel tends to be optimistic for beginners at the marathon, so the UI notes that predictions assume proper training for that distance.
 
@@ -68,15 +68,15 @@ Riegel tends to be optimistic for beginners at the marathon, so the UI notes tha
 
 Invalid input never crashes the page and never shows `NaN`: results hide and an inline message explains the fix.
 
-| Case | Rule | Message shown |
-| --- | --- | --- |
-| Empty or zero time | Total time must be > 0 s | "Enter your race time." |
-| Minutes or seconds ≥ 60 | Reject; don't roll over | "Minutes and seconds must be 0–59." |
-| Negative or non-numeric | Reject | "Use whole numbers only." |
-| Custom distance ≤ 0 | Reject | "Distance must be greater than 0." |
-| Custom distance < 1 km or > 100 km | Reject | "Distance must be between 1 and 100 km." |
-| Pace faster than 2:30 /km | Reject as likely typo | "That's faster than the world record — check your time." |
-| Goal distance not a whole number of splits | Last split is partial (a marathon in miles ends with 0.22 mi) | — |
+| Case                                       | Rule                                                          | Message shown                                            |
+| ------------------------------------------ | ------------------------------------------------------------- | -------------------------------------------------------- |
+| Empty or zero time                         | Total time must be > 0 s                                      | "Enter your race time."                                  |
+| Minutes or seconds ≥ 60                    | Reject; don't roll over                                       | "Minutes and seconds must be 0–59."                      |
+| Negative or non-numeric                    | Reject                                                        | "Use whole numbers only."                                |
+| Custom distance ≤ 0                        | Reject                                                        | "Distance must be greater than 0."                       |
+| Custom distance < 1 km or > 100 km         | Reject                                                        | "Distance must be between 1 and 100 km."                 |
+| Pace faster than 2:30 /km                  | Reject as likely typo                                         | "That's faster than the world record — check your time." |
+| Goal distance not a whole number of splits | Last split is partial (a marathon in miles ends with 0.22 mi) | —                                                        |
 
 ### Interface contract
 
@@ -163,13 +163,13 @@ race-pace-calculator/
 
 **Patterns to follow**
 
-| Thing | Convention | Example |
-| --- | --- | --- |
-| Lib files | camelCase, one concern per file | `predict.ts` |
-| Components | PascalCase, one per file | `RaceInput.tsx` |
-| Tests | mirror the module name | `tests/predict.test.ts` |
-| Commits | Conventional Commits + task or FR ID | `feat(FR-2): add Riegel prediction` |
-| Data flow | components call `src/lib/`; lib never imports components | — |
+| Thing      | Convention                                               | Example                             |
+| ---------- | -------------------------------------------------------- | ----------------------------------- |
+| Lib files  | camelCase, one concern per file                          | `predict.ts`                        |
+| Components | PascalCase, one per file                                 | `RaceInput.tsx`                     |
+| Tests      | mirror the module name                                   | `tests/predict.test.ts`             |
+| Commits    | Conventional Commits + task or FR ID                     | `feat(FR-2): add Riegel prediction` |
+| Data flow  | components call `src/lib/`; lib never imports components | —                                   |
 
 **Modules done:** none yet.
 
@@ -179,41 +179,41 @@ Done by Tue Nov 10, 2026. Each task is one commit and is finished only when its 
 
 **Setup (Oct 27)**
 
-- [ ] **T1** Create GitHub repo `race-pace-calculator`. *Verify:* repo page loads on GitHub.
-- [ ] **T2** Scaffold Vite + React + TypeScript. *Verify:* `npm run dev` shows the starter page.
-- [ ] **T3** Add Vitest with one placeholder test. *Verify:* `npm test` reports 1 passing.
-- [ ] **T4** Add Prettier + `eslint-config-prettier`. *Verify:* `npm run lint` exits with no errors.
-- [ ] **T5** Export this doc to `SPEC.md` and push. *Verify:* `SPEC.md` visible on `main`.
-- [ ] **T6** Write `ci.yml` (lint, type-check, tests). *Verify:* green check on GitHub Actions.
+- [ ] **T1** Create GitHub repo `race-pace-calculator`. _Verify:_ repo page loads on GitHub.
+- [ ] **T2** Scaffold Vite + React + TypeScript. _Verify:_ `npm run dev` shows the starter page.
+- [ ] **T3** Add Vitest with one placeholder test. _Verify:_ `npm test` reports 1 passing.
+- [ ] **T4** Add Prettier + `eslint-config-prettier`. _Verify:_ `npm run lint` exits with no errors.
+- [ ] **T5** Export this doc to `SPEC.md` and push. _Verify:_ `SPEC.md` visible on `main`.
+- [ ] **T6** Write `ci.yml` (lint, type-check, tests). _Verify:_ green check on GitHub Actions.
 
 **Core logic, test-first (Oct 28 – Nov 1)**
 
-- [ ] **T7** Decide the open questions below and record answers here. *Verify:* every question has an answer.
+- [ ] **T7** Decide the open questions below and record answers here. _Verify:_ every question has an answer.
   - Zone model: 5K-pace multipliers or VDOT tables?
   - Interface contract: keep the given signatures, or design your own?
   - Split length: fixed 1 km / 1 mi, or user-selectable?
   - Default unit: min/mi or min/km?
   - Goal time default: prefill with prediction, or empty?
   - Styling: plain CSS modules or Tailwind?
-- [ ] **T8** `units.ts`. *Verify:* tests pass for 1 mi = 1.609344 km and marathon = 42.195 km.
-- [ ] **T9** `parseTime` + `formatDuration`. *Verify:* (0, 28, 0) → 1680; 1680 → "28:00"; 16113 → "4:28:33"; round-trip test passes.
-- [ ] **T10** `formatPace`. *Verify:* 336 s/km → "5:36 /km" and "9:01 /mi".
-- [ ] **T11** `predictTime` (FR-2). *Verify:* all three predictions in the worked example match to the second.
-- [ ] **T12** `trainingZones` (FR-3). *Verify:* all four zones match the worked example.
-- [ ] **T13** `evenSplits` (FR-4). *Verify:* marathon in miles gives 27 splits, last is 0.22 mi, final cumulative time equals goal time.
-- [ ] **T14** `validateRaceInput`. *Verify:* one passing test per Validation row.
+- [ ] **T8** `units.ts`. _Verify:_ tests pass for 1 mi = 1.609344 km and marathon = 42.195 km.
+- [ ] **T9** `parseTime` + `formatDuration`. _Verify:_ (0, 28, 0) → 1680; 1680 → "28:00"; 16113 → "4:28:33"; round-trip test passes.
+- [ ] **T10** `formatPace`. _Verify:_ 336 s/km → "5:36 /km" and "9:01 /mi".
+- [ ] **T11** `predictTime` (FR-2). _Verify:_ all three predictions in the worked example match to the second.
+- [ ] **T12** `trainingZones` (FR-3). _Verify:_ all four zones match the worked example.
+- [ ] **T13** `evenSplits` (FR-4). _Verify:_ marathon in miles gives 27 splits, last is 0.22 mi, final cumulative time equals goal time.
+- [ ] **T14** `validateRaceInput`. _Verify:_ one passing test per Validation row.
 
 **UI (Nov 2 – Nov 6)**
 
-- [ ] **T15** RaceInput form (FR-1). *Verify:* entering 5K / 28:00 updates results with no reload; bad input shows its message.
-- [ ] **T16** Predictions view (FR-2). *Verify:* shows 58:23 / 2:08:48 / 4:28:33; the 5K row says "your time".
-- [ ] **T17** Zones view (FR-3). *Verify:* four ranges match the worked example.
-- [ ] **T18** Splits view (FR-4). *Verify:* last row's cumulative time equals the goal time.
-- [ ] **T19** Unit toggle (FR-5). *Verify:* every pace on screen switches units.
-- [ ] **T20** Responsive layout. *Verify:* no horizontal scroll at 375px in browser dev tools.
+- [ ] **T15** RaceInput form (FR-1). _Verify:_ entering 5K / 28:00 updates results with no reload; bad input shows its message.
+- [ ] **T16** Predictions view (FR-2). _Verify:_ shows 58:23 / 2:08:48 / 4:28:33; the 5K row says "your time".
+- [ ] **T17** Zones view (FR-3). _Verify:_ four ranges match the worked example.
+- [ ] **T18** Splits view (FR-4). _Verify:_ last row's cumulative time equals the goal time.
+- [ ] **T19** Unit toggle (FR-5). _Verify:_ every pace on screen switches units.
+- [ ] **T20** Responsive layout. _Verify:_ no horizontal scroll at 375px in browser dev tools.
 
 **Ship (Nov 7 – Nov 10)**
 
-- [ ] **T21** Deploy to Vercel from `main`. *Verify:* public URL loads; a new push redeploys.
-- [ ] **T22** README. *Verify:* has description, screenshot, live link, formulas, run steps.
-- [ ] **T23** Final check on a real phone and desktop. *Verify:* every Definition of done item holds.
+- [ ] **T21** Deploy to Vercel from `main`. _Verify:_ public URL loads; a new push redeploys.
+- [ ] **T22** README. _Verify:_ has description, screenshot, live link, formulas, run steps.
+- [ ] **T23** Final check on a real phone and desktop. _Verify:_ every Definition of done item holds.
