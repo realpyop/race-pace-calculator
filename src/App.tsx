@@ -7,6 +7,9 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
+  // For type checking in Typescript to see if it can pass CI
+  // const x: number = "this is a type erorr";
+
   return (
     <>
       <section id="center">
