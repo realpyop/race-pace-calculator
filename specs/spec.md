@@ -140,7 +140,7 @@ validateRaceInput(h: number, m: number, s: number, km: number): Result
 
 ## 4. Current state
 
-No code exists yet as of Oct 27, 2026. The starting point is the Vite `react-ts` template. Update this section as modules land, so it always describes the repo as it really is.
+Tooling done: add “GitHub Actions CI”.
 
 **Target layout**
 
@@ -158,7 +158,7 @@ race-pace-calculator/
 │   │   └── validate.ts     # rules from the Validation table
 │   ├── components/         # RaceInput, Predictions, Zones, Splits, UnitToggle
 │   └── App.tsx
-└── tests/                  # <module>.test.ts, one per lib module
+└── tests/                  # <module>.test.ts, one per lib
 ```
 
 **Patterns to follow**
@@ -185,7 +185,7 @@ Done by Tue Nov 10, 2026. Each task is one commit and is finished only when its 
 - [x] **T3** Add Vitest with one placeholder test. _Verify:_ `npm test` reports 1 passing.
 - [x] **T4** Add Prettier . _Verify:_ `npm run lint` and `npm run format:check` both pass.
 - [x] **T5** Export this doc to `specs/spec.md` and push. _Verify:_ `specs/spec.md` visible on `main`.
-- [ ] **T6** Write `ci.yml` (lint, type-check, tests). _Verify:_ green check on GitHub Actions.
+- [x] **T6** Write `ci.yml` (lint, typecheck, test). _Verify:_ green check on GitHub Actions.
 
 **Core logic, test-first (Oct 28 – Nov 1)**
 

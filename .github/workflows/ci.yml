@@ -15,7 +15,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v5
 
-      # 2. Install Node.js, and cache downloaded npm packages to run install faster
+        # 2. Install Node.js, and cache downloaded npm packages to run install faster
       - name: Set up Node
         uses: actions/setup-node@v5
         with:
