@@ -1,0 +1,44 @@
+name: CI
+
+# ----WHEN to run -------------------------------------------------------------
+on:
+  push:
+    branches: [main] # run when someone commit to main
+  pull_request: # run on every pull requests, see problem before merging into main
+
+# ---- WHAT to run -------------------------------------------------------------
+jobs:
+  check: # job's ID
+    runs-on: ubuntu-latest # rent a fresh Linux machine from Github
+    steps: # run these step in order
+      # 1. Copy repo code onto machine
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      # 2. Install Node.js, and cache downloaded npm packages to run install faster
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      # 3. Install EXACT versions from package-lock.json.
+      - name: Install dependencies
+        run: npm ci
+
+      # 4 - 7. Local checks
+      # Lint
+      - name: Lint
+        run: npm run lint
+
+      # Formatting (Prettier)
+      - name: Check formatting
+        run: npm run format:check
+
+      # Typecheck (Typescript)
+      - name: Type-check
+        run: npm run typecheck
+
+      # Test (./test/)
+      - name: Test
+        run: npm test
