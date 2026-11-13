@@ -122,7 +122,7 @@ validateRaceInput(h: number, m: number, s: number, km: number): Result
 - Write each `src/lib/` test before the function it tests
 - Keep CI (lint, type-check, tests) green on `main`
 - Work at 375px phone width with no horizontal scroll
-- Use only the fixed stack: Vite, React, TypeScript, Vitest, ESLint, Prettier, GitHub Actions, Vercel
+- Use only the fixed stack: Vite, React, TypeScript, Vitest, Oxlint, Prettier, GitHub Actions, Vercel
 
 **Must not**
 
@@ -171,6 +171,7 @@ race-pace-calculator/
 | Commits    | Conventional Commits + task or FR ID                     | `feat(FR-2): add Riegel prediction` |
 | Data flow  | components call `src/lib/`; lib never imports components | —                                   |
 
+**Tooling done:** Vite + React + TypeScript scaffold, Vitest (1 placeholder test), Oxlint, Prettier.
 **Modules done:** none yet.
 
 ## 5. Tasks
@@ -179,11 +180,11 @@ Done by Tue Nov 10, 2026. Each task is one commit and is finished only when its 
 
 **Setup (Oct 27)**
 
-- [ ] **T1** Create GitHub repo `race-pace-calculator`. _Verify:_ repo page loads on GitHub.
-- [ ] **T2** Scaffold Vite + React + TypeScript. _Verify:_ `npm run dev` shows the starter page.
-- [ ] **T3** Add Vitest with one placeholder test. _Verify:_ `npm test` reports 1 passing.
-- [ ] **T4** Add Prettier + `eslint-config-prettier`. _Verify:_ `npm run lint` exits with no errors.
-- [ ] **T5** Export this doc to `SPEC.md` and push. _Verify:_ `SPEC.md` visible on `main`.
+- [x] **T1** Create GitHub repo `race-pace-calculator`. _Verify:_ repo page loads on GitHub.
+- [x] **T2** Scaffold Vite + React + TypeScript. _Verify:_ `npm run dev` shows the starter page.
+- [x] **T3** Add Vitest with one placeholder test. _Verify:_ `npm test` reports 1 passing.
+- [x] **T4** Add Prettier . _Verify:_ `npm run lint` and `npm run format:check` both pass.
+- [x] **T5** Export this doc to `specs/spec.md` and push. _Verify:_ `specs/spec.md` visible on `main`.
 - [ ] **T6** Write `ci.yml` (lint, type-check, tests). _Verify:_ green check on GitHub Actions.
 
 **Core logic, test-first (Oct 28 – Nov 1)**
