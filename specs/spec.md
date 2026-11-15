@@ -140,25 +140,23 @@ validateRaceInput(h: number, m: number, s: number, km: number): Result
 
 ## 4. Current state
 
-Tooling done: add “GitHub Actions CI”.
-
 **Target layout**
 
 ```
 race-pace-calculator/
-├── SPEC.md                 # this doc, exported
+├── specs/spec.md             # this doc, exported
 ├── .github/workflows/ci.yml
 ├── src/
-│   ├── lib/                # pure logic, no React
-│   │   ├── units.ts        # km ↔ mi, distance constants
-│   │   ├── time.ts         # parse + format times and paces
-│   │   ├── predict.ts      # Riegel predictions
-│   │   ├── zones.ts        # training pace zones
-│   │   ├── splits.ts       # goal race splits
-│   │   └── validate.ts     # rules from the Validation table
-│   ├── components/         # RaceInput, Predictions, Zones, Splits, UnitToggle
+│   ├── lib/                  # pure logic, no React
+│   │   ├── units.ts          # km ↔ mi, distance constants
+│   │   ├── time.ts           # parse + format times and paces
+│   │   ├── predict.ts        # Riegel predictions
+│   │   ├── zones.ts          # training pace zones
+│   │   ├── splits.ts         # goal race splits
+│   │   └── validate.ts       # rules from the Validation table
+│   ├── components/           # RaceInput, Predictions, Zones, Splits, UnitToggle
 │   └── App.tsx
-└── tests/                  # <module>.test.ts, one per lib
+└── tests/                    # <module>.test.ts, one per lib
 ```
 
 **Patterns to follow**
@@ -171,8 +169,8 @@ race-pace-calculator/
 | Commits    | Conventional Commits + task or FR ID                     | `feat(FR-2): add Riegel prediction` |
 | Data flow  | components call `src/lib/`; lib never imports components | —                                   |
 
-**Tooling done:** Vite + React + TypeScript scaffold, Vitest (1 placeholder test), Oxlint, Prettier.
-**Modules done:** none yet.
+**Tooling done:** Vite + React + TypeScript scaffold, GitHub Action CI, Oxlint, Prettier, CI
+**Modules done:** units.ts
 
 ## 5. Tasks
 
@@ -189,14 +187,15 @@ Done by Tue Nov 10, 2026. Each task is one commit and is finished only when its 
 
 **Core logic, test-first (Oct 28 – Nov 1)**
 
-- [ ] **T7** Decide the open questions below and record answers here. _Verify:_ every question has an answer.
+- [x] **T7** Decide the open questions below and record answers here. _Verify:_ every question has an answer.
   - Zone model: 5K-pace multipliers, because the test value are already defined, VDOT if you want to explore further
   - Interface contract: Design my own, to learn the in and out of front end designing
   - Split length: Fixed, introduce more data mean more edge case so for now fixed is good
   - Default unit: Minute/mile, audience gravitate toward US
   - Goal time default: Prefill, beginner usually doesn't know how to set goal so a prefill is good
   - Styling: Tailwind, to practice Tailwind for bigger app
-- [ ] **T8** `units.ts`. _Verify:_ tests pass for 1 mi = 1.609344 km and marathon = 42.195 km.
+  - Tests: tests/ folder, included in tsconfig.app.json
+- [x] **T8** `units.ts`. _Verify:_ tests pass for 1 mi = 1.609344 km and marathon = 42.195 km.
 - [ ] **T9** `parseTime` + `formatDuration`. _Verify:_ (0, 28, 0) → 1680; 1680 → "28:00"; 16113 → "4:28:33"; round-trip test passes.
 - [ ] **T10** `formatPace`. _Verify:_ 336 s/km → "5:36 /km" and "9:01 /mi".
 - [ ] **T11** `predictTime` (FR-2). _Verify:_ all three predictions in the worked example match to the second.
