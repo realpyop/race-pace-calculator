@@ -122,7 +122,7 @@ validateRaceInput(h: number, m: number, s: number, km: number): Result
 - Write each `src/lib/` test before the function it tests
 - Keep CI (lint, type-check, tests) green on `main`
 - Work at 375px phone width with no horizontal scroll
-- Use only the fixed stack: Vite, React, TypeScript, Vitest, Oxlint, Prettier, GitHub Actions, Vercel
+- Use only the fixed stack: Vite, React, TypeScript, Vitest, Oxlint, Prettier, GitHub Actions, Vercel, Tailwind
 
 **Must not**
 
@@ -190,12 +190,12 @@ Done by Tue Nov 10, 2026. Each task is one commit and is finished only when its 
 **Core logic, test-first (Oct 28 – Nov 1)**
 
 - [ ] **T7** Decide the open questions below and record answers here. _Verify:_ every question has an answer.
-  - Zone model: 5K-pace multipliers or VDOT tables?
-  - Interface contract: keep the given signatures, or design your own?
-  - Split length: fixed 1 km / 1 mi, or user-selectable?
-  - Default unit: min/mi or min/km?
-  - Goal time default: prefill with prediction, or empty?
-  - Styling: plain CSS modules or Tailwind?
+  - Zone model: 5K-pace multipliers, because the test value are already defined, VDOT if you want to explore further
+  - Interface contract: Design my own, to learn the in and out of front end designing
+  - Split length: Fixed, introduce more data mean more edge case so for now fixed is good
+  - Default unit: Minute/mile, audience gravitate toward US
+  - Goal time default: Prefill, beginner usually doesn't know how to set goal so a prefill is good
+  - Styling: Tailwind, to practice Tailwind for bigger app
 - [ ] **T8** `units.ts`. _Verify:_ tests pass for 1 mi = 1.609344 km and marathon = 42.195 km.
 - [ ] **T9** `parseTime` + `formatDuration`. _Verify:_ (0, 28, 0) → 1680; 1680 → "28:00"; 16113 → "4:28:33"; round-trip test passes.
 - [ ] **T10** `formatPace`. _Verify:_ 336 s/km → "5:36 /km" and "9:01 /mi".
